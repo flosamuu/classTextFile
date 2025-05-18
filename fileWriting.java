@@ -1,6 +1,6 @@
 // This thing is supposed to create a text file with every odd line of another file
 // Default input file will be classTextFile.txt. If it doesn't exist, enter the path to whatever input file you want
-// It will create a new file, classTextFileTwo.txt, in your desktop to output the odd lines to
+// It will create a new file, with a name of your choice, in your desktop to output the odd lines to
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,13 +12,15 @@ public class fileWriting {
         // Get the user's home directory
         String home = System.getProperty("user.home");
 
+        // Scanner for the person to input stuff
+        Scanner input = new Scanner(System.in);
+
         // Prerequisite: the file classTextFile.txt exists
         File inputFile = new File(home + "/Desktop/classTextFile.txt");
-
-        // Creates a file called classTextFileTwo to put the output in
-        File outputFile = new File(home + "/Desktop/classTextFileTwo.txt");
         
-        Scanner input = new Scanner(System.in);
+        if (inputFile.exists()) {
+            System.out.println("Looks like classTextFile.txt already exists. It'll be the input file by default.");
+        }
 
         while (!inputFile.exists()) {
             System.out.println("Erm input file not found at " + inputFile.getAbsolutePath());
@@ -28,7 +30,15 @@ public class fileWriting {
             inputFile = new File(path);
             System.out.println();
         }
-        
+
+        // Creates a file called classTextFileTwo to put the output in
+        System.out.print("Enter the NAME of the file you want to output to, excluding the path and format. ");
+        System.out.println("(If it doesn't exist on your desktop, it will be automatically placed there and formatted as a .txt file): ");
+
+        String outputFileName = input.nextLine();
+
+        File outputFile = new File(home + "/Desktop/" + outputFileName + ".txt");
+                
         input.close();
         Scanner scan = new Scanner(inputFile);
         
