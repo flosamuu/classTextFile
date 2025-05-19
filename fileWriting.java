@@ -38,8 +38,18 @@ public class fileWriting {
         String outputFileName = input.nextLine();
 
         File outputFile = new File(home + "/Desktop/" + outputFileName + ".txt");
-                
-        input.close();
+
+        int function = 0;
+
+        while (function < 1 || function > 5) {
+            System.out.println("What would you like to do? Type out the NUMBER corresponding to your choice.");
+            System.out.println("1  Keep all lines\n2  Keep the odd lines\n3  Keep the even lines\n4  Add something to the start of each line\n5  Add something to the end of each line");
+            function = input.nextInt();
+        }
+
+        // Clear the annoying leftover newline in the input buffer
+        input.nextLine();
+
         Scanner scan = new Scanner(inputFile);
         
         // String to store the text we want
@@ -47,14 +57,56 @@ public class fileWriting {
 
         // Add every odd line from the input file to the string
         int lineNumber = 1;
-        while (scan.hasNextLine()) {
-            String line = scan.nextLine();
-            if (lineNumber % 2  == 1) {
+
+        if (function == 1) {
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
                 fileContent += line + "\n";
+                lineNumber++;
             }
-            lineNumber++;
         }
 
+        else if (function == 2) {
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                if (lineNumber % 2  == 1) {
+                    fileContent += line + "\n";
+                }
+                lineNumber++;
+            }
+        }
+
+        else if (function == 3) {
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                if (lineNumber % 2  == 0) {
+                    fileContent += line + "\n";
+                }
+                lineNumber++;
+            }
+        }
+
+        else if (function == 4) {
+            System.out.println("What would you like to add to the start of each line?");
+            String addition = input.nextLine();
+
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                fileContent += addition + line + "\n";
+            }
+        }
+
+        else if (function == 5) {
+            System.out.println("What would you like to add to the end of each line?");
+            String addition = input.nextLine();
+
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                fileContent += line + addition + "\n";
+            }
+        }
+
+        input.close();
         scan.close();
 
         // Write that in 🗣🗣📝!!
